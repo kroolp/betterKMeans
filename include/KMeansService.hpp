@@ -11,7 +11,7 @@ class KMeansService
 {
 public:
   
-  KMeansService(const NumericMatrix& inputMatrix, int k);
+  KMeansService(const NumericMatrix& inputMatrix, int k, double epsilon, int maxIter);
   void calculate();
   
   void initClusters();
@@ -19,10 +19,14 @@ public:
   void setNewCenters();
 
   Cluster* calculateCluster(const Point& p);
+  double calculateD();
   
   vector<Point> points;
-  int k;
   vector <Cluster> clusters;
+
+  int k;
+  double epsilon;
+  int maxIter;
 };
 
 #endif

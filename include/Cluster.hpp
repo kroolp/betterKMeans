@@ -12,6 +12,7 @@ class Cluster
 public:
   Cluster(Point centerPoint, int id);
   void setNewCenter();
+  double calculateD();
   
   vector <Point*> points;
   Point centerPoint;
