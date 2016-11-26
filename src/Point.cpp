@@ -1,6 +1,6 @@
 #include "../include/Point.hpp"
 
-Point::Point(const NumericVector& x)
+Point::Point(vector<double> x)
   : x(x)
 {}
   

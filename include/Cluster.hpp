@@ -10,7 +10,7 @@ class Cluster
 {
 public:
   
-  Cluster(Point& centerPoint);
+  Cluster(Point centerPoint);
   
   std::vector <Point> points;
   Point centerPoint;

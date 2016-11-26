@@ -6,14 +6,13 @@
 using namespace Rcpp;
 
 // testowa
-double testowa(NumericVector x, NumericVector y);
-RcppExport SEXP KM_testowa(SEXP xSEXP, SEXP ySEXP) {
+void testowa(NumericMatrix matrix, int k);
+RcppExport SEXP KM_testowa(SEXP matrixSEXP, SEXP kSEXP) {
 BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(testowa(x, y));
-    return rcpp_result_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type matrix(matrixSEXP);
+    Rcpp::traits::input_parameter< int >::type k(kSEXP);
+    testowa(matrix, k);
+    return R_NilValue;
 END_RCPP
 }

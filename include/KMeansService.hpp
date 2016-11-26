@@ -2,22 +2,24 @@
 #define K_MEANS_SERVICE_HPP
 #include <Rcpp.h>
 #include "../include/Cluster.hpp"
+#include <vector>
 
+using namespace std;
 using namespace Rcpp;
 
 class KMeansService
 {
 public:
   
-  KMeansService(const NumericMatrix& inputData, int k);
+  KMeansService(const NumericMatrix& inputMatrix, int k);
   void initClusters();
-
-private:
+  
+  private:
   double calculateDistance(const Point& a, const Point& b);
   
-  NumericMatrix inputData;
+  vector< vector<double> > inputData;
   int k;
-  std::vector <Cluster> clusters;
+  vector <Cluster> clusters;
 };
 
 #endif

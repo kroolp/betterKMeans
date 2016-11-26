@@ -1,9 +1,20 @@
 #include <cmath>
 #include "../include/KMeansService.hpp"
+#include "../include/MathHelper.hpp"
 
-KMeansService::KMeansService(const NumericMatrix& inputData, int k)
-  :inputData(inputData), k(k)
-  {}
+KMeansService::KMeansService(const NumericMatrix& inputMatrix, int k)
+:k(k)
+{
+  for(int i=0; i<inputMatrix.nrow(); i++)
+  {
+    vector<double> rowVector;
+
+    for(int j=0; j<inputMatrix.ncol(); j++)
+      rowVector.push_back(inputMatrix(i,j));
+
+    inputData.push_back(rowVector);
+  }
+}
 
 double KMeansService::calculateDistance(const Point& a, const Point& b)
 {
@@ -17,5 +28,15 @@ double KMeansService::calculateDistance(const Point& a, const Point& b)
 
 void KMeansService::initClusters()
 {
+  int* centerIndexes = MathHelper::randomUniq(inputData.size(), k);
+
+  for(int i=0; i<k; i++)
+  {
+    vector<double> vector = inputData[centerIndexes[i]];
+    Point centerPoint(vector);
+    Cluster cluster(centerPoint);
+    clusters.push_back(cluster);
+  }
   
+  delete [] centerIndexes;
 }

@@ -1,16 +1,18 @@
 #ifndef POINT_HPP
 #define POINT_HPP
 #include <Rcpp.h>
+#include <vector>
 
+using namespace std;
 using namespace Rcpp;
 
 class Point
 {
 public:
 
-  Point(const NumericVector& x);
+  Point(vector<double> x);
   
-  NumericVector x;
+  vector<double> x;
 };
 
 #endif

@@ -1,5 +1,5 @@
 #include "../include/Cluster.hpp"
 
-Cluster::Cluster(Point& centerPoint)
+Cluster::Cluster(Point centerPoint)
   : centerPoint(centerPoint)
 {}
