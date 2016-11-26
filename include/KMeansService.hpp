@@ -18,7 +18,6 @@ public:
   void setPointsIntoCluster();
   void setNewCenters();
 
-  double calculateSquareDistance(const Point& a, const Point& b);
   Cluster* calculateCluster(const Point& p);
   
   vector<Point> points;

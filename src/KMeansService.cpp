@@ -58,16 +58,6 @@ void KMeansService::setNewCenters()
     (*it).setNewCenter();
 }
 
-double KMeansService::calculateSquareDistance(const Point& a, const Point& b)
-{
-  double sum = 0;
-  
-  for(int i=0; i<a.x.size(); i++)
-    sum += pow(a.x[i] - b.x[i], 2);
-  
-  return sum;
-}
-
 Cluster* KMeansService::calculateCluster(const Point& point)
 {
   double minDistance = numeric_limits<double>::max();
@@ -76,7 +66,7 @@ Cluster* KMeansService::calculateCluster(const Point& point)
   for(vector<Cluster>::iterator it = clusters.begin(); it != clusters.end(); it++)
   {
     Point currentPoint = (*it).centerPoint;
-    double distance = calculateSquareDistance(currentPoint, point);
+    double distance = currentPoint.squareDistance(point);
     
     if(distance < minDistance)
     {

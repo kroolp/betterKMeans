@@ -12,6 +12,7 @@ public:
 
   Point(vector<double> x);
   
+  double squareDistance(const Point& b);
   vector<double> x;
 };
 
