@@ -4,14 +4,16 @@
 #include <vector>
 #include "../include/Point.hpp"
 
+using namespace std;
 using namespace Rcpp;
 
 class Cluster
 {
 public:
   Cluster(Point centerPoint, int id);
+  void setNewCenter();
   
-  std::vector <*Point> points;
+  vector <Point*> points;
   Point centerPoint;
   int id;
 };

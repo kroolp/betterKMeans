@@ -18,6 +18,13 @@ KMeansService::KMeansService(const NumericMatrix& inputMatrix, int k)
   }
 }
 
+void KMeansService::calculate()
+{
+  initClusters();
+  setPointsIntoCluster();
+  setNewCenters();
+}
+
 void KMeansService::initClusters()
 {
   int* centerIndexes = MathHelper::randomUniq(points.size(), k);
@@ -39,19 +46,26 @@ void KMeansService::setPointsIntoCluster()
   
   for(vector<Point>::iterator it = points.begin(); it != points.end(); it++)
   {
-    Cluster* c = calculateCluster(*it);
-    c->points.push_back(*it);
+    Point& currentPoint = *it;
+    Cluster* c = calculateCluster(currentPoint);
+    c->points.push_back(&currentPoint);
   }
 }
 
-double KMeansService::calculateDistance(const Point& a, const Point& b)
+void KMeansService::setNewCenters()
+{
+  for(vector<Cluster>::iterator it = clusters.begin(); it != clusters.end(); it++)
+    (*it).setNewCenter();
+}
+
+double KMeansService::calculateSquareDistance(const Point& a, const Point& b)
 {
   double sum = 0;
   
   for(int i=0; i<a.x.size(); i++)
     sum += pow(a.x[i] - b.x[i], 2);
   
-  return sqrt(sum);
+  return sum;
 }
 
 Cluster* KMeansService::calculateCluster(const Point& point)
@@ -62,7 +76,7 @@ Cluster* KMeansService::calculateCluster(const Point& point)
   for(vector<Cluster>::iterator it = clusters.begin(); it != clusters.end(); it++)
   {
     Point currentPoint = (*it).centerPoint;
-    double distance = calculateDistance(currentPoint, point);
+    double distance = calculateSquareDistance(currentPoint, point);
     
     if(distance < minDistance)
     {

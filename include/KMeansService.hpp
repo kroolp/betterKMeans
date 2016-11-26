@@ -12,11 +12,13 @@ class KMeansService
 public:
   
   KMeansService(const NumericMatrix& inputMatrix, int k);
+  void calculate();
+  
   void initClusters();
   void setPointsIntoCluster();
-  
+  void setNewCenters();
 
-  double calculateDistance(const Point& a, const Point& b);
+  double calculateSquareDistance(const Point& a, const Point& b);
   Cluster* calculateCluster(const Point& p);
   
   vector<Point> points;
