@@ -13,7 +13,34 @@ KMeansService::KMeansService(const NumericMatrix& inputMatrix, int k)
     for(int j=0; j<inputMatrix.ncol(); j++)
       rowVector.push_back(inputMatrix(i,j));
 
-    inputData.push_back(rowVector);
+    Point point(rowVector);
+    points.push_back(point);
+  }
+}
+
+void KMeansService::initClusters()
+{
+  int* centerIndexes = MathHelper::randomUniq(points.size(), k);
+  
+  for(int i=0; i<k; i++)
+  {
+    Point centerPoint = points[centerIndexes[i]];
+    Cluster cluster(centerPoint, i);
+    clusters.push_back(cluster);
+  }
+  
+  delete [] centerIndexes;
+}
+
+void KMeansService::setPointsIntoCluster()
+{
+  for(vector<Cluster>::iterator it = clusters.begin(); it != clusters.end(); it++)
+    (*it).points.clear();
+  
+  for(vector<Point>::iterator it = points.begin(); it != points.end(); it++)
+  {
+    Cluster* c = calculateCluster(*it);
+    c->points.push_back(*it);
   }
 }
 
@@ -25,21 +52,6 @@ double KMeansService::calculateDistance(const Point& a, const Point& b)
     sum += pow(a.x[i] - b.x[i], 2);
   
   return sqrt(sum);
-}
-
-void KMeansService::initClusters()
-{
-  int* centerIndexes = MathHelper::randomUniq(inputData.size(), k);
-
-  for(int i=0; i<k; i++)
-  {
-    vector<double> vector = inputData[centerIndexes[i]];
-    Point centerPoint(vector);
-    Cluster cluster(centerPoint);
-    clusters.push_back(cluster);
-  }
-  
-  delete [] centerIndexes;
 }
 
 Cluster* KMeansService::calculateCluster(const Point& point)

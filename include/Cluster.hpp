@@ -9,10 +9,11 @@ using namespace Rcpp;
 class Cluster
 {
 public:
-  Cluster(Point centerPoint);
+  Cluster(Point centerPoint, int id);
   
-  std::vector <Point> points;
+  std::vector <*Point> points;
   Point centerPoint;
+  int id;
 };
 
 #endif

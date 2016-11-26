@@ -13,12 +13,13 @@ public:
   
   KMeansService(const NumericMatrix& inputMatrix, int k);
   void initClusters();
+  void setPointsIntoCluster();
   
 
   double calculateDistance(const Point& a, const Point& b);
   Cluster* calculateCluster(const Point& p);
   
-  vector< vector<double> > inputData;
+  vector<Point> points;
   int k;
   vector <Cluster> clusters;
 };
