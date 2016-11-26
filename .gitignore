@@ -1,0 +1,10 @@
+.DS_Store
+
+.RData
+.Rhistory
+.Rproj.user
+KM.Rproj
+R/RcppExports.R
+
+src/**/*.o
+src/**/*.so
