@@ -3,4 +3,3 @@
 Point::Point(vector<double> x)
   : x(x)
 {}
-  

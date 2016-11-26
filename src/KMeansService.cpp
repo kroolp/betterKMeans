@@ -1,4 +1,5 @@
 #include <cmath>
+#include <limits>
 #include "../include/KMeansService.hpp"
 #include "../include/MathHelper.hpp"
 
@@ -39,4 +40,24 @@ void KMeansService::initClusters()
   }
   
   delete [] centerIndexes;
+}
+
+Cluster* KMeansService::calculateCluster(const Point& point)
+{
+  double minDistance = numeric_limits<double>::max();
+  Cluster* nearestCluster = NULL;
+  
+  for(vector<Cluster>::iterator it = clusters.begin(); it != clusters.end(); it++)
+  {
+    Point currentPoint = (*it).centerPoint;
+    double distance = calculateDistance(currentPoint, point);
+    
+    if(distance < minDistance)
+    {
+      nearestCluster = &(*it);
+      minDistance = distance;
+    }
+  }
+  
+  return nearestCluster;
 }

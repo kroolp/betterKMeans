@@ -14,8 +14,9 @@ public:
   KMeansService(const NumericMatrix& inputMatrix, int k);
   void initClusters();
   
-  private:
+
   double calculateDistance(const Point& a, const Point& b);
+  Cluster* calculateCluster(const Point& p);
   
   vector< vector<double> > inputData;
   int k;

@@ -9,7 +9,6 @@ using namespace Rcpp;
 class Cluster
 {
 public:
-  
   Cluster(Point centerPoint);
   
   std::vector <Point> points;
