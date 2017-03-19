@@ -2,8 +2,6 @@
 #define POINT_HPP
 #include <Rcpp.h>
 
-using namespace Rcpp;
-
 class Point
 {
 public:
