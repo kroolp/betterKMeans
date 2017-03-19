@@ -1,15 +1,21 @@
 #include "../include/Point.hpp"
 
-Point::Point(vector<double> x)
-  : x(x)
-{}
+Point::Point(std::vector<double> x): x(x){}
 
-double Point::squareDistance(const Point& otherPoint)
+Point Point::operator-(Point& otherPoint)
 {
-  double sum = 0;
+  std::vector<double> result;
+  result.reserve(this->x.size());
   
-  for(int i=0; i<x.size(); i++)
-    sum += pow(x[i] - otherPoint.x[i], 2);
+  std::transform(this->x.begin(), this->x.end(), otherPoint.x.begin(), 
+                 std::back_inserter(result), std::minus<double>());
   
-  return sum;
+  return Point(result);
+}
+
+std::ostream& operator<< (std::ostream& ostream, Point& point) {
+  for(std::vector<double>::iterator it = point.x.begin(); it != point.x.end(); it++)
+    ostream << *it << " ";
+
+  return ostream;
 }

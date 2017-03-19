@@ -25,8 +25,6 @@ double Cluster::calculateD()
 {
   double sum = 0;
 
-  for(vector<Point*>::iterator it=points.begin(); it != points.end(); it++)
-    sum += (**it).squareDistance(centerPoint);
   
   return sum;
 }

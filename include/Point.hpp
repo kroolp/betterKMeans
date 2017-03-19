@@ -1,19 +1,19 @@
 #ifndef POINT_HPP
 #define POINT_HPP
 #include <Rcpp.h>
-#include <vector>
 
-using namespace std;
 using namespace Rcpp;
 
 class Point
 {
 public:
 
-  Point(vector<double> x);
+  Point(std::vector<double> x);
+  Point operator-(Point& otherPoint);
   
-  double squareDistance(const Point& b);
-  vector<double> x;
+  std::vector<double> x;
 };
+
+std::ostream& operator<< (std::ostream& ostream, Point& point);
 
 #endif

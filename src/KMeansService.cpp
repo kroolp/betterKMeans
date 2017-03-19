@@ -79,7 +79,7 @@ Cluster* KMeansService::calculateCluster(const Point& point)
   for(vector<Cluster>::iterator it = clusters.begin(); it != clusters.end(); it++)
   {
     Point currentPoint = (*it).centerPoint;
-    double distance = currentPoint.squareDistance(point);
+    double distance = 0;
     
     if(distance < minDistance)
     {
