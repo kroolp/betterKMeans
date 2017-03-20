@@ -3,6 +3,7 @@
 #include <Rcpp.h>
 #include <vector>
 #include "../include/Point.hpp"
+#include "../include/EuclideanMath.hpp"
 
 using namespace std;
 using namespace Rcpp;
@@ -10,13 +11,12 @@ using namespace Rcpp;
 class Cluster
 {
 public:
-  Cluster(Point centerPoint, int id);
+  Cluster(Point& centerPoint);
   void setNewCenter();
-  double calculateD();
+  double errorSum();
   
   vector <Point*> points;
   Point centerPoint;
-  int id;
 };
 
 #endif
