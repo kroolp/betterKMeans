@@ -1,5 +1,5 @@
-#ifndef K_MEANS_SERVICE_HPP
-#define K_MEANS_SERVICE_HPP
+#ifndef K_MEANS_HPP
+#define K_MEANS_HPP
 #include <Rcpp.h>
 #include "../include/Cluster.hpp"
 #include <vector>
@@ -7,26 +7,26 @@
 using namespace std;
 using namespace Rcpp;
 
-class KMeansService
+class KMeans
 {
 public:
   
-  KMeansService(const NumericMatrix& inputMatrix, int k, double epsilon, int maxIter);
+  KMeans(const vector<Point>& points, int k, double epsilon, int maxIter);
   void calculate();
   
   void initClusters();
   void setPointsIntoCluster();
   void setNewCenters();
-
-  Cluster* calculateCluster(const Point& p);
-  double calculateD();
+  bool canStop();
+  double errorSum();
   
   vector<Point> points;
-  vector <Cluster> clusters;
+  vector<Cluster> clusters;
 
   int k;
   double epsilon;
   int maxIter;
+  int iterationCount;
 };
 
 #endif

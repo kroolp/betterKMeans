@@ -5,14 +5,17 @@
 
 using namespace Rcpp;
 
-// testowa
-void testowa(NumericMatrix matrix, int k);
-RcppExport SEXP KM_testowa(SEXP matrixSEXP, SEXP kSEXP) {
+// kmeans
+NumericMatrix kmeans(NumericMatrix inputMatrix, int k, double epsilon, int maxIter);
+RcppExport SEXP KM_kmeans(SEXP inputMatrixSEXP, SEXP kSEXP, SEXP epsilonSEXP, SEXP maxIterSEXP) {
 BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type matrix(matrixSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type inputMatrix(inputMatrixSEXP);
     Rcpp::traits::input_parameter< int >::type k(kSEXP);
-    testowa(matrix, k);
-    return R_NilValue;
+    Rcpp::traits::input_parameter< double >::type epsilon(epsilonSEXP);
+    Rcpp::traits::input_parameter< int >::type maxIter(maxIterSEXP);
+    rcpp_result_gen = Rcpp::wrap(kmeans(inputMatrix, k, epsilon, maxIter));
+    return rcpp_result_gen;
 END_RCPP
 }

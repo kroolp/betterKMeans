@@ -12,7 +12,6 @@ int* MathHelper::randomUniq(int n, int m)
   for(int i=0; i<m; i++)
     std::swap(arr[n-1-i], arr[std::rand()%(n-i)]);
   
-  std::cout<<std::endl;
   int* result = new int[m];
   
   for(int i=n-m; i<n; i++)
