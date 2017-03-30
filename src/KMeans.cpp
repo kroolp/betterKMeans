@@ -1,11 +1,10 @@
 #include <cmath>
 #include <limits>
 #include "../include/KMeans.hpp"
-#include "../include/MathHelper.hpp"
 #include <iostream>
 
-KMeans::KMeans(const vector<Point>& points, int k, double epsilon, int maxIter)
-:points(points), k(k), epsilon(epsilon), maxIter(maxIter), iterationCount(0)
+KMeans::KMeans(mat pointsMatrix, int k, double epsilon, int maxIter)
+:pointsMatrix(pointsMatrix), k(k), epsilon(epsilon), maxIter(maxIter), iterationCount(0)
 {
   initClusters();
 }
@@ -14,7 +13,7 @@ void KMeans::calculate()
 {
   do
   {
-    this->iterationCount++;
+    iterationCount++;
 
     setPointsIntoCluster();
     setNewCenters();
@@ -23,65 +22,68 @@ void KMeans::calculate()
 
 void KMeans::initClusters()
 {
-  int* centerIndexes = MathHelper::randomUniq(points.size(), k);
+  mat shuffledMatrix = shuffle(pointsMatrix);
   
   for(int i=0; i<k; i++)
   {
-    Point centerPoint = points[centerIndexes[i]];
+    rowvec centerPoint = shuffledMatrix.row(i);
     Cluster cluster(centerPoint);
     clusters.push_back(cluster);
   }
-  
-  delete [] centerIndexes;
 }
 
 void KMeans::setPointsIntoCluster()
 {
-  for(vector<Cluster>::iterator it = clusters.begin(); it != clusters.end(); it++)
-    (*it).points.clear();
+  clearClusters();
   
   double minDistance;
   Cluster* cluster;
 
-  for(vector<Point>::iterator pointIt = points.begin(); pointIt != points.end(); pointIt++)
+  for(int i=0; i<pointsMatrix.n_rows; i++)
   {
+    rowvec point = pointsMatrix.row(i);
     minDistance = numeric_limits<double>::max();
-    cluster = NULL;
+    int clusterIndex= -1;
 
-    for(vector<Cluster>::iterator clusterIt = clusters.begin(); clusterIt != clusters.end(); clusterIt++)
+    for(int j=0; j<clusters.size(); j++)
     {
-      Point& centerPoint = (*clusterIt).centerPoint;
-      double distance = EuclideanMath::squaredDistance(*pointIt, centerPoint);
+      rowvec centerPoint = clusters[j].centerPoint;
+      double distance = pow(norm(point - centerPoint), 2);
 
       if(minDistance >= distance)
       {
         minDistance = distance;
-        cluster = &(*clusterIt);
+        clusterIndex = j;
       }
     }
     
-    if(cluster != NULL)
-      (*cluster).points.push_back(&(*pointIt));
+    clusters[clusterIndex].points.push_back(point);
   }
 }
 
 void KMeans::setNewCenters()
 {
-  for(vector<Cluster>::iterator it = clusters.begin(); it != clusters.end(); it++)
-    (*it).setNewCenter();
+  for(int i=0; i<clusters.size(); i++)
+    clusters[i].setNewCenter();
 }
 
 bool KMeans::canStop()
 {
-  return errorSum() < this->epsilon || this->iterationCount > this->maxIter;
+  return errorSum() < epsilon || iterationCount > maxIter;
 }
 
 double KMeans::errorSum()
 {
   double result = 0.0;
   
-  for(vector<Cluster>::iterator it = clusters.begin(); it != clusters.end(); it++)
-    result += (*it).errorSum();
+  for(int i=0; i<clusters.size(); i++)
+    result += clusters[i].errorSum();
   
   return result;
+}
+
+void KMeans::clearClusters()
+{
+  for(int i=0; i<clusters.size(); i++)
+    clusters[i].points.clear();
 }

@@ -1,22 +1,21 @@
 #ifndef CLUSTER_HPP
 #define CLUSTER_HPP
-#include <Rcpp.h>
 #include <vector>
-#include "../include/Point.hpp"
-#include "../include/EuclideanMath.hpp"
+#include <RcppArmadillo.h>
 
 using namespace std;
-using namespace Rcpp;
+using namespace arma;
 
 class Cluster
 {
 public:
-  Cluster(Point& centerPoint);
+  Cluster(rowvec centerPoint);
   void setNewCenter();
   double errorSum();
-  
-  vector <Point*> points;
-  Point centerPoint;
+  mat pointsMatrix();
+
+  vector <rowvec> points;
+  rowvec centerPoint;
 };
 
 #endif

@@ -1,17 +1,15 @@
 #ifndef K_MEANS_HPP
 #define K_MEANS_HPP
-#include <Rcpp.h>
+#include <RcppArmadillo.h>
 #include "../include/Cluster.hpp"
-#include <vector>
 
-using namespace std;
-using namespace Rcpp;
+using namespace arma;
 
 class KMeans
 {
 public:
   
-  KMeans(const vector<Point>& points, int k, double epsilon, int maxIter);
+  KMeans(mat pointsMatrix, int k, double epsilon, int maxIter);
   void calculate();
   
   void initClusters();
@@ -19,8 +17,9 @@ public:
   void setNewCenters();
   bool canStop();
   double errorSum();
+  void clearClusters();
   
-  vector<Point> points;
+  mat pointsMatrix;
   vector<Cluster> clusters;
 
   int k;
