@@ -12,7 +12,6 @@ class Function
     virtual double operator()(rowvec variables, Eigen::VectorXd parameters) = 0;
 
     int parametersCount;
-    Eigen::VectorXd parameters;
 };
 
 #endif

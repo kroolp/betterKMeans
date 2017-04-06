@@ -1,6 +1,5 @@
 #ifndef STRING_FUNCTION_HPP
 #define STRING_FUNCTION_HPP
-#include <RcppArmadillo.h>
 #include <algorithm>
 #include <string>
 #include "./Function.hpp"
