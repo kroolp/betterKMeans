@@ -2,21 +2,17 @@
 // Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #include <RcppArmadillo.h>
+#include <RcppEigen.h>
 #include <Rcpp.h>
 
 using namespace Rcpp;
 
-// kMeans
-arma::mat kMeans(arma::mat inputMatrix, int k, double epsilon, int maxIter);
-RcppExport SEXP KM_kMeans(SEXP inputMatrixSEXP, SEXP kSEXP, SEXP epsilonSEXP, SEXP maxIterSEXP) {
+// test
+void test();
+RcppExport SEXP KM_test() {
 BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type inputMatrix(inputMatrixSEXP);
-    Rcpp::traits::input_parameter< int >::type k(kSEXP);
-    Rcpp::traits::input_parameter< double >::type epsilon(epsilonSEXP);
-    Rcpp::traits::input_parameter< int >::type maxIter(maxIterSEXP);
-    rcpp_result_gen = Rcpp::wrap(kMeans(inputMatrix, k, epsilon, maxIter));
-    return rcpp_result_gen;
+    test();
+    return R_NilValue;
 END_RCPP
 }
