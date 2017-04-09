@@ -6,7 +6,7 @@
 using namespace arma;
 using namespace std;
 
-class ParabolicFunction: Function
+class ParabolicFunction: public Function
 {
   public:
     ParabolicFunction(int variablesCount);

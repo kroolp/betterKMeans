@@ -8,11 +8,13 @@
 using namespace Rcpp;
 
 // test
-void test();
-RcppExport SEXP KM_test() {
+void test(arma::mat matrix, std::string expression);
+RcppExport SEXP KM_test(SEXP matrixSEXP, SEXP expressionSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
-    test();
+    Rcpp::traits::input_parameter< arma::mat >::type matrix(matrixSEXP);
+    Rcpp::traits::input_parameter< std::string >::type expression(expressionSEXP);
+    test(matrix, expression);
     return R_NilValue;
 END_RCPP
 }

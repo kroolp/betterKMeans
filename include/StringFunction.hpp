@@ -8,7 +8,7 @@
 using namespace arma;
 using namespace std;
 
-class StringFunction: Function
+class StringFunction: public Function
 {
   public:
     typedef exprtk::symbol_table<double> symbol_table_t;
