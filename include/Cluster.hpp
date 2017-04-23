@@ -11,7 +11,7 @@ using namespace arma;
 class Cluster
 {
 public:
-  Cluster(rowvec centerPoint, Function* func, vec& transformedVector, int omega);
+  Cluster(rowvec centerPoint, Function* func, int omega);
   void setNewCenter();
   void interpolateFunction();
   double errorSum();
@@ -19,10 +19,10 @@ public:
   int omega;
 
   vector <rowvec> points;
+  vector <double> transformedPoints;
   rowvec centerPoint;
 
   Function* func;
-  vec& transformedVector;
 };
 
 #endif

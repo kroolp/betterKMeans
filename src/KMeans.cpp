@@ -32,7 +32,7 @@ void KMeans::initClusters()
   {
     Function* func = getInitFunction();
     rowvec centerPoint = shuffledMatrix.row(i);
-    Cluster cluster(centerPoint, func, *transformedVector, omega);
+    Cluster cluster(centerPoint, func, omega);
     clusters.push_back(cluster);
   }
 }
@@ -47,6 +47,7 @@ void KMeans::setPointsIntoCluster()
   for(int i=0; i<pointsMatrix.n_rows; i++)
   {
     rowvec point = pointsMatrix.row(i);
+    double transformedPoint = (*transformedVector).row(i).max();
     minDistance = numeric_limits<double>::max();
     int clusterIndex= -1;
 
@@ -63,6 +64,7 @@ void KMeans::setPointsIntoCluster()
     }
 
     clusters[clusterIndex].points.push_back(point);
+    clusters[clusterIndex].transformedPoints.push_back(transformedPoint);
   }
 }
 
