@@ -5,6 +5,7 @@
 #include "./Function.hpp"
 #include "./StringFunction.hpp"
 #include "./ParabolicFunction.hpp"
+#include "./PCA.hpp"
 
 using namespace arma;
 
@@ -18,12 +19,14 @@ public:
   void initClusters();
   void setPointsIntoCluster();
   void setNewCenters();
+  void interpolateFunctions();
   bool canStop();
   double errorSum();
   void clearClusters();
   Function* getInitFunction();
 
   mat pointsMatrix;
+  vec* transformedVector;
   vector<Cluster> clusters;
 
   int k;

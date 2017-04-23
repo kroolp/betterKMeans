@@ -1,7 +1,7 @@
 #include "../include/Cluster.hpp"
 
-Cluster::Cluster(rowvec centerPoint, Function* func)
-: centerPoint(centerPoint), func(func)
+Cluster::Cluster(rowvec centerPoint, Function* func, vec& transformedVector)
+: centerPoint(centerPoint), func(func), transformedVector(transformedVector)
 {
   Eigen::VectorXd initParameters;
   initParameters.fill(0);
@@ -12,6 +12,12 @@ Cluster::Cluster(rowvec centerPoint, Function* func)
 void Cluster::setNewCenter()
 {
   centerPoint = mean(pointsMatrix());
+}
+
+void Cluster::interpolateFunction()
+{
+  NoLinearInterpolation noLinearInterpolation(pointsMatrix(), *func);
+  noLinearInterpolation.interpolate();
 }
 
 double Cluster::errorSum()

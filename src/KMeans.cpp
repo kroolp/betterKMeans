@@ -7,6 +7,8 @@ KMeans::KMeans(mat pointsMatrix, int k, double epsilon, int maxIter, int omega =
 :pointsMatrix(pointsMatrix), k(k), epsilon(epsilon), maxIter(maxIter), iterationCount(0),
  omega(omega), expression(expression)
 {
+  PCA pca(pointsMatrix);
+  transformedVector = pca.calculate();
   initClusters();
 }
 
@@ -18,18 +20,19 @@ void KMeans::calculate()
 
     setPointsIntoCluster();
     setNewCenters();
+    KMeans::interpolateFunctions();
   }while(!canStop());
 }
 
 void KMeans::initClusters()
 {
   mat shuffledMatrix = shuffle(pointsMatrix);
-  
+
   for(int i=0; i<k; i++)
   {
     Function* func = getInitFunction();
     rowvec centerPoint = shuffledMatrix.row(i);
-    Cluster cluster(centerPoint, func);
+    Cluster cluster(centerPoint, func, *transformedVector);
     clusters.push_back(cluster);
   }
 }
@@ -37,7 +40,7 @@ void KMeans::initClusters()
 void KMeans::setPointsIntoCluster()
 {
   clearClusters();
-  
+
   double minDistance;
   Cluster* cluster;
 
@@ -58,7 +61,7 @@ void KMeans::setPointsIntoCluster()
         clusterIndex = j;
       }
     }
-    
+
     clusters[clusterIndex].points.push_back(point);
   }
 }
@@ -69,6 +72,12 @@ void KMeans::setNewCenters()
     clusters[i].setNewCenter();
 }
 
+void KMeans::interpolateFunctions()
+{
+  for(int i=0; i<clusters.size(); i++)
+    clusters[i].interpolateFunction();
+}
+
 bool KMeans::canStop()
 {
   return errorSum() < epsilon || iterationCount > maxIter;
@@ -77,10 +86,10 @@ bool KMeans::canStop()
 double KMeans::errorSum()
 {
   double result = 0.0;
-  
+
   for(int i=0; i<clusters.size(); i++)
     result += clusters[i].errorSum();
-  
+
   return result;
 }
 

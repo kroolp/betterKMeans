@@ -3,6 +3,7 @@
 #include <vector>
 #include <RcppArmadillo.h>
 #include "./Function.hpp"
+#include "./NoLinearInterpolation.hpp"
 
 using namespace std;
 using namespace arma;
@@ -10,8 +11,9 @@ using namespace arma;
 class Cluster
 {
 public:
-  Cluster(rowvec centerPoint, Function* func);
+  Cluster(rowvec centerPoint, Function* func, vec& transformedVector);
   void setNewCenter();
+  void interpolateFunction();
   double errorSum();
   mat pointsMatrix();
 
@@ -19,6 +21,7 @@ public:
   rowvec centerPoint;
 
   Function* func;
+  vec& transformedVector;
 };
 
 #endif
