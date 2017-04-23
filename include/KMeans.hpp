@@ -1,24 +1,28 @@
 #ifndef K_MEANS_HPP
 #define K_MEANS_HPP
 #include <RcppArmadillo.h>
-#include "../include/Cluster.hpp"
+#include "./Cluster.hpp"
+#include "./Function.hpp"
+#include "./StringFunction.hpp"
+#include "./ParabolicFunction.hpp"
 
 using namespace arma;
 
 class KMeans
 {
 public:
-  
-  KMeans(mat pointsMatrix, int k, double epsilon, int maxIter);
+
+  KMeans(mat pointsMatrix, int k, double epsilon, int maxIter, int omega, string expression);
   void calculate();
-  
+
   void initClusters();
   void setPointsIntoCluster();
   void setNewCenters();
   bool canStop();
   double errorSum();
   void clearClusters();
-  
+  Function* getInitFunction();
+
   mat pointsMatrix;
   vector<Cluster> clusters;
 
@@ -26,6 +30,8 @@ public:
   double epsilon;
   int maxIter;
   int iterationCount;
+  int omega;
+  string expression;
 };
 
 #endif

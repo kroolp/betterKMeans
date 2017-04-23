@@ -3,8 +3,9 @@
 #include "../include/KMeans.hpp"
 #include <iostream>
 
-KMeans::KMeans(mat pointsMatrix, int k, double epsilon, int maxIter)
-:pointsMatrix(pointsMatrix), k(k), epsilon(epsilon), maxIter(maxIter), iterationCount(0)
+KMeans::KMeans(mat pointsMatrix, int k, double epsilon, int maxIter, int omega = 1, string expression = "")
+:pointsMatrix(pointsMatrix), k(k), epsilon(epsilon), maxIter(maxIter), iterationCount(0),
+ omega(omega), expression(expression)
 {
   initClusters();
 }
@@ -26,8 +27,9 @@ void KMeans::initClusters()
   
   for(int i=0; i<k; i++)
   {
+    Function* func = getInitFunction();
     rowvec centerPoint = shuffledMatrix.row(i);
-    Cluster cluster(centerPoint);
+    Cluster cluster(centerPoint, func);
     clusters.push_back(cluster);
   }
 }
@@ -86,4 +88,12 @@ void KMeans::clearClusters()
 {
   for(int i=0; i<clusters.size(); i++)
     clusters[i].points.clear();
+}
+
+Function* KMeans::getInitFunction()
+{
+  if(expression != "")
+    return (new StringFunction(expression));
+  else
+    return (new ParabolicFunction(pointsMatrix.n_rows - 1));
 }
