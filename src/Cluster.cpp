@@ -1,7 +1,7 @@
 #include "../include/Cluster.hpp"
 
-Cluster::Cluster(rowvec centerPoint, Function* func, vec& transformedVector)
-: centerPoint(centerPoint), func(func), transformedVector(transformedVector)
+Cluster::Cluster(rowvec centerPoint, Function* func, vec& transformedVector, int omega)
+: centerPoint(centerPoint), func(func), transformedVector(transformedVector), omega(omega)
 {
   Eigen::VectorXd initParameters;
   initParameters.fill(0);

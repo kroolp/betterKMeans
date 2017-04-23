@@ -32,7 +32,7 @@ void KMeans::initClusters()
   {
     Function* func = getInitFunction();
     rowvec centerPoint = shuffledMatrix.row(i);
-    Cluster cluster(centerPoint, func, *transformedVector);
+    Cluster cluster(centerPoint, func, *transformedVector, omega);
     clusters.push_back(cluster);
   }
 }

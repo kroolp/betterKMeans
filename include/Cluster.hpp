@@ -11,11 +11,12 @@ using namespace arma;
 class Cluster
 {
 public:
-  Cluster(rowvec centerPoint, Function* func, vec& transformedVector);
+  Cluster(rowvec centerPoint, Function* func, vec& transformedVector, int omega);
   void setNewCenter();
   void interpolateFunction();
   double errorSum();
   mat pointsMatrix();
+  int omega;
 
   vector <rowvec> points;
   rowvec centerPoint;
