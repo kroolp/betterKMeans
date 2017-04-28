@@ -1,8 +1,11 @@
 #ifndef CLUSTER_HPP
 #define CLUSTER_HPP
 #include <vector>
+#include <cmath>
 #include <RcppArmadillo.h>
 #include "./Function.hpp"
+#include "./StringFunction.hpp"
+#include "./ParabolicFunction.hpp"
 #include "./NoLinearInterpolation.hpp"
 
 using namespace std;
@@ -15,6 +18,7 @@ public:
   void setNewCenter();
   void interpolateFunction();
   double errorSum();
+  double calculateDistance(rowvec point, double transformedPoint);
   mat pointsMatrix();
   int omega;
 

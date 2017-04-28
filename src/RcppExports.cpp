@@ -7,14 +7,19 @@
 
 using namespace Rcpp;
 
-// test
-void test(arma::mat matrix, std::string expression);
-RcppExport SEXP KM_test(SEXP matrixSEXP, SEXP expressionSEXP) {
+// kMeans
+arma::mat kMeans(arma::mat inputMatrix, int k, double epsilon, int maxIter, int omega, std::string expression);
+RcppExport SEXP KM_kMeans(SEXP inputMatrixSEXP, SEXP kSEXP, SEXP epsilonSEXP, SEXP maxIterSEXP, SEXP omegaSEXP, SEXP expressionSEXP) {
 BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type matrix(matrixSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type inputMatrix(inputMatrixSEXP);
+    Rcpp::traits::input_parameter< int >::type k(kSEXP);
+    Rcpp::traits::input_parameter< double >::type epsilon(epsilonSEXP);
+    Rcpp::traits::input_parameter< int >::type maxIter(maxIterSEXP);
+    Rcpp::traits::input_parameter< int >::type omega(omegaSEXP);
     Rcpp::traits::input_parameter< std::string >::type expression(expressionSEXP);
-    test(matrix, expression);
-    return R_NilValue;
+    rcpp_result_gen = Rcpp::wrap(kMeans(inputMatrix, k, epsilon, maxIter, omega, expression));
+    return rcpp_result_gen;
 END_RCPP
 }

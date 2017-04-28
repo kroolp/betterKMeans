@@ -13,7 +13,7 @@ class KMeans
 {
 public:
 
-  KMeans(mat pointsMatrix, int k, double epsilon, int maxIter, int omega, string expression);
+  KMeans(mat pointsMatrix, int k, double epsilon, int maxIter, int omega = 1, string expression = "");
   void calculate();
 
   void initClusters();
@@ -26,7 +26,7 @@ public:
   Function* getInitFunction();
 
   mat pointsMatrix;
-  vec* transformedVector;
+  vec transformedVector;
   vector<Cluster> clusters;
 
   int k;

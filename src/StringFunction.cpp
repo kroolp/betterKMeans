@@ -24,12 +24,6 @@ StringFunction::StringFunction(string str_expression)
   parser.compile(str_expression,expression);
 }
 
-StringFunction::~StringFunction()
-{
-  delete [] currentVariables;
-  delete [] currentParameters;
-}
-
 double StringFunction::operator()(rowvec variables)
 {
   copyVariables(variables);

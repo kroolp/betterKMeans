@@ -8,8 +8,8 @@ using namespace arma;
 class Function
 {
   public:
-    virtual double operator()(rowvec variables);
-    virtual double operator()(rowvec variables, Eigen::VectorXd parameters);
+    virtual double operator()(rowvec variables) = 0;
+    virtual double operator()(rowvec variables, Eigen::VectorXd parameters) = 0;
 
     int parametersCount;
 };

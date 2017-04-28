@@ -3,7 +3,7 @@
 #include "../include/KMeans.hpp"
 #include <iostream>
 
-KMeans::KMeans(mat pointsMatrix, int k, double epsilon, int maxIter, int omega = 1, string expression = "")
+KMeans::KMeans(mat pointsMatrix, int k, double epsilon, int maxIter, int omega, string expression)
 :pointsMatrix(pointsMatrix), k(k), epsilon(epsilon), maxIter(maxIter), iterationCount(0),
  omega(omega), expression(expression)
 {
@@ -47,14 +47,14 @@ void KMeans::setPointsIntoCluster()
   for(int i=0; i<pointsMatrix.n_rows; i++)
   {
     rowvec point = pointsMatrix.row(i);
-    double transformedPoint = (*transformedVector).row(i).max();
+    double transformedPoint = transformedVector.row(i).max();
     minDistance = numeric_limits<double>::max();
     int clusterIndex= -1;
 
     for(int j=0; j<clusters.size(); j++)
     {
       rowvec centerPoint = clusters[j].centerPoint;
-      double distance = pow(norm(point - centerPoint), 2);
+      double distance = clusters[j].calculateDistance(point, transformedPoint);
 
       if(minDistance >= distance)
       {
@@ -98,7 +98,10 @@ double KMeans::errorSum()
 void KMeans::clearClusters()
 {
   for(int i=0; i<clusters.size(); i++)
+  {
     clusters[i].points.clear();
+    clusters[i].transformedPoints.clear();
+  }
 }
 
 Function* KMeans::getInitFunction()
@@ -106,5 +109,5 @@ Function* KMeans::getInitFunction()
   if(expression != "")
     return (new StringFunction(expression));
   else
-    return (new ParabolicFunction(pointsMatrix.n_rows - 1));
+    return (new ParabolicFunction(pointsMatrix.n_cols - 1));
 }
