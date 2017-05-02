@@ -5,10 +5,8 @@
 
 KMeansBase::KMeansBase(mat pointsMatrix, int k, double epsilon, int maxIter, int omega, string expression)
 :pointsMatrix(pointsMatrix), k(k), epsilon(epsilon), maxIter(maxIter), iterationCount(0),
- omega(omega), expression(expression)
+ omega(omega), expression(expression), labels(vec(pointsMatrix.n_rows)), errors(vec(k))
 {
-  PCA pca(pointsMatrix);
-  transformedVector = pca.calculate();
   initClusters();
 }
 
@@ -49,6 +47,7 @@ void KMeansBase::setPointsIntoCluster()
     }
 
     clusters[clusterIndex].points.push_back(point);
+    labels.row(i) = clusterIndex + 1;
   }
 }
 
@@ -74,8 +73,14 @@ double KMeansBase::errorSum()
   double result = 0.0;
 
   for(int i=0; i<clusters.size(); i++)
+  {
       for(int j=0; j<clusters[i].points.size(); j++)
-        result += distance(clusters[i].points[j], clusters[i]);
+      {
+        double calculatedDistance = distance(clusters[i].points[j], clusters[i]);
+        errors.row(i) += calculatedDistance;
+        result += calculatedDistance;
+      }
+  }
 
   return result;
 }

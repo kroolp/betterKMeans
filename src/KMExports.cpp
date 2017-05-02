@@ -21,5 +21,9 @@ Rcpp::List kMeans(arma::mat inputMatrix, int k, double epsilon, int maxIter)
     resultMatrix.row(i) = kMeans.clusters[i].centerPoint;
   }
 
-  return Rcpp::List::create(Rcpp::Named("centers") = resultMatrix);
+  return Rcpp::List::create(
+    Rcpp::Named("centers") = resultMatrix,
+    Rcpp::Named("labels") = kMeans.labels,
+    Rcpp::Named("errors") = kMeans.errors
+  );
 }

@@ -26,7 +26,8 @@ public:
   void clearClusters();
 
   mat pointsMatrix;
-  vec transformedVector;
+  vec labels;
+  vec errors;
   vector<Cluster> clusters;
 
   int k;
