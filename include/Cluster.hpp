@@ -14,18 +14,15 @@ using namespace arma;
 class Cluster
 {
 public:
-  Cluster(rowvec centerPoint, Function* func, int omega);
+  Cluster(rowvec centerPoint, string expression = "");
   void setNewCenter();
   void interpolateFunction();
-  double errorSum();
-  double calculateDistance(rowvec point, double transformedPoint);
   mat pointsMatrix();
-  int omega;
 
   vector <rowvec> points;
-  vector <double> transformedPoints;
   rowvec centerPoint;
 
+  string expression;
   Function* func;
 };
 

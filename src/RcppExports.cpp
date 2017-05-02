@@ -8,8 +8,8 @@
 using namespace Rcpp;
 
 // kMeans
-arma::mat kMeans(arma::mat inputMatrix, int k, double epsilon, int maxIter, int omega, std::string expression);
-RcppExport SEXP KM_kMeans(SEXP inputMatrixSEXP, SEXP kSEXP, SEXP epsilonSEXP, SEXP maxIterSEXP, SEXP omegaSEXP, SEXP expressionSEXP) {
+Rcpp::List kMeans(arma::mat inputMatrix, int k, double epsilon, int maxIter);
+RcppExport SEXP KM_kMeans(SEXP inputMatrixSEXP, SEXP kSEXP, SEXP epsilonSEXP, SEXP maxIterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -17,9 +17,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type k(kSEXP);
     Rcpp::traits::input_parameter< double >::type epsilon(epsilonSEXP);
     Rcpp::traits::input_parameter< int >::type maxIter(maxIterSEXP);
-    Rcpp::traits::input_parameter< int >::type omega(omegaSEXP);
-    Rcpp::traits::input_parameter< std::string >::type expression(expressionSEXP);
-    rcpp_result_gen = Rcpp::wrap(kMeans(inputMatrix, k, epsilon, maxIter, omega, expression));
+    rcpp_result_gen = Rcpp::wrap(kMeans(inputMatrix, k, epsilon, maxIter));
     return rcpp_result_gen;
 END_RCPP
 }
