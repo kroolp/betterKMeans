@@ -1,7 +1,7 @@
 #include "../include/KMeans.hpp"
 
 KMeans::KMeans(mat pointsMatrix, int k, double epsilon, int maxIter)
-: KMeansBase(pointsMatrix, k, epsilon, maxIter) {}
+: KMeansBase(pointsMatrix, k, epsilon, maxIter, vec(1)) {}
 
 void KMeans::calculate()
 {
@@ -16,5 +16,5 @@ void KMeans::calculate()
 
 double KMeans::distance(rowvec& point, Cluster& cluster)
 {
-  pow(norm(point - cluster.centerPoint), 2);
+  return pow(norm(point - cluster.centerPoint), 2);
 }

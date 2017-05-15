@@ -2,10 +2,7 @@
 #define K_MEANS_BASE_HPP
 #include <RcppArmadillo.h>
 #include "./Cluster.hpp"
-#include "./Function.hpp"
 #include "./StringFunction.hpp"
-#include "./ParabolicFunction.hpp"
-#include "./PCA.hpp"
 
 using namespace arma;
 
@@ -13,7 +10,7 @@ class KMeansBase
 {
 public:
 
-  KMeansBase(mat pointsMatrix, int k, double epsilon, int maxIter, int omega = 1, string expression = "");
+  KMeansBase(mat pointsMatrix, int k, double epsilon, int maxIter, vec omega, string expression = "");
   virtual void calculate() = 0;
   virtual double distance(rowvec& point, Cluster& c) = 0;
 
@@ -21,6 +18,7 @@ public:
   void setPointsIntoCluster();
   void setNewCenters();
   void interpolateFunctions();
+  void calculateBases();
   bool canStop();
   double errorSum();
   void clearClusters();
@@ -34,7 +32,7 @@ public:
   double epsilon;
   int maxIter;
   int iterationCount;
-  int omega;
+  vec omega;
   string expression;
 };
 

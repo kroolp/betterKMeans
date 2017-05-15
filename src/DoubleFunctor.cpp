@@ -1,6 +1,6 @@
 #include "../include/DoubleFunctor.hpp"
 
-DoubleFunctor::DoubleFunctor(mat matrix, Function& function)
+DoubleFunctor::DoubleFunctor(mat matrix, StringFunction& function)
 : matrix(matrix), function(function) {}
 
 int DoubleFunctor::inputs() const

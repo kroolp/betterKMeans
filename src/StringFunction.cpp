@@ -27,7 +27,6 @@ StringFunction::StringFunction(string str_expression)
 double StringFunction::operator()(rowvec variables)
 {
   copyVariables(variables);
-
   return expression.value();
 }
 
@@ -35,7 +34,6 @@ double StringFunction::operator()(rowvec variables, Eigen::VectorXd parameters)
 {
   copyVariables(variables);
   copyParameters(parameters);
-
   return expression.value();
 }
 

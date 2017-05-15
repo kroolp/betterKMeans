@@ -10,7 +10,7 @@ class PCA
   public:
     PCA(mat matrix);
 
-    vec calculate();
+    mat calculate();
 
     mat matrix;
 };

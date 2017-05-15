@@ -5,3 +5,11 @@ kMeans <- function(inputMatrix, k, epsilon, maxIter) {
     .Call('KM_kMeans', PACKAGE = 'KM', inputMatrix, k, epsilon, maxIter)
 }
 
+kOMeans <- function(inputMatrix, k, epsilon, maxIter, omega) {
+    .Call('KM_kOMeans', PACKAGE = 'KM', inputMatrix, k, epsilon, maxIter, omega)
+}
+
+betterKMeans <- function(inputMatrix, k, epsilon, maxIter, omega, expression) {
+    .Call('KM_betterKMeans', PACKAGE = 'KM', inputMatrix, k, epsilon, maxIter, omega, expression)
+}
+

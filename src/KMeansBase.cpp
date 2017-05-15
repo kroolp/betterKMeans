@@ -3,7 +3,7 @@
 #include "../include/KMeansBase.hpp"
 #include <iostream>
 
-KMeansBase::KMeansBase(mat pointsMatrix, int k, double epsilon, int maxIter, int omega, string expression)
+KMeansBase::KMeansBase(mat pointsMatrix, int k, double epsilon, int maxIter, vec omega, string expression)
 :pointsMatrix(pointsMatrix), k(k), epsilon(epsilon), maxIter(maxIter), iterationCount(0),
  omega(omega), expression(expression), labels(vec(pointsMatrix.n_rows)), errors(vec(k))
 {
@@ -27,7 +27,7 @@ void KMeansBase::setPointsIntoCluster()
   clearClusters();
 
   double minDistance;
-  Cluster* cluster;
+  Cluster* cluster = NULL;
 
   for(int i=0; i<pointsMatrix.n_rows; i++)
   {
@@ -62,6 +62,13 @@ void KMeansBase::interpolateFunctions()
   for(int i=0; i<clusters.size(); i++)
     clusters[i].interpolateFunction();
 }
+
+void KMeansBase::calculateBases()
+{
+  for(int i=0; i<clusters.size(); i++)
+    clusters[i].calculateBase();
+}
+
 
 bool KMeansBase::canStop()
 {

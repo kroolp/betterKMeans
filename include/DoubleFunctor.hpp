@@ -3,7 +3,7 @@
 
 #include <unsupported/Eigen/NonLinearOptimization>
 #include <RcppArmadillo.h>
-#include "./Function.hpp"
+#include "./StringFunction.hpp"
 
 using namespace arma;
 
@@ -22,7 +22,7 @@ public:
 
   int m_inputs, m_values;
 
-  DoubleFunctor(mat matrix, Function& function);
+  DoubleFunctor(mat matrix, StringFunction& function);
 
   int operator()(const Eigen::VectorXd &x, Eigen::VectorXd &fvec) const;
 
@@ -30,7 +30,7 @@ public:
   int values() const;
 
   mat matrix;
-  Function& function;
+  StringFunction& function;
 };
 
 #endif

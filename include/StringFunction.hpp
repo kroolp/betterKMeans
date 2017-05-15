@@ -2,13 +2,14 @@
 #define STRING_FUNCTION_HPP
 #include <algorithm>
 #include <string>
-#include "./Function.hpp"
+#include <RcppArmadillo.h>
+#include <RcppEigen.h>
 #include "./ext/exprtk.hpp"
 
 using namespace arma;
 using namespace std;
 
-class StringFunction: public Function
+class StringFunction
 {
   public:
     typedef exprtk::symbol_table<double> symbol_table_t;
@@ -17,7 +18,6 @@ class StringFunction: public Function
     typedef exprtk::parser_error::type error_t;
 
     StringFunction(string str_expression);
-    ~StringFunction();
 
     double operator()(rowvec variables);
     double operator()(rowvec variables, Eigen::VectorXd parameters);
@@ -26,6 +26,7 @@ class StringFunction: public Function
     double* currentVariables;
     double* currentParameters;
     int variablesCount;
+    int parametersCount;
 
     void copyVariables(rowvec variables);
     void copyParameters(Eigen::VectorXd parameters);
