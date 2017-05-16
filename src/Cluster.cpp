@@ -9,7 +9,6 @@ Cluster::Cluster(rowvec centerPoint, string expression)
   base.fill(0);
   parameters.fill(0);
   variables.fill(0);
-
   func(variables, parameters);
 }
 

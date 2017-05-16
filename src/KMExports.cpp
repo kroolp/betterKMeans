@@ -66,8 +66,8 @@ Rcpp::List betterKMeans(arma::mat inputMatrix, int k, double epsilon, int maxIte
 
   return Rcpp::List::create(
     Rcpp::Named("centers") = resultMatrix,
-    Rcpp::Named("labels") = betterKMeans.labels,
-    Rcpp::Named("errors") = betterKMeans.errors,
-    Rcpp::Named("bases") = bases
+    Rcpp::Named("labels") = resultMatrix,
+    Rcpp::Named("errors") = resultMatrix,
+    Rcpp::Named("bases") = resultMatrix
   );
 }

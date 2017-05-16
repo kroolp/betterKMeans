@@ -33,7 +33,7 @@ void KMeansBase::setPointsIntoCluster()
   {
     rowvec point = pointsMatrix.row(i);
     minDistance = numeric_limits<double>::max();
-    int clusterIndex= -1;
+    int clusterIndex= 0;
 
     for(int j=0; j<clusters.size(); j++)
     {

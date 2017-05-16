@@ -22,7 +22,8 @@ class StringFunction
     double operator()(rowvec variables);
     double operator()(rowvec variables, Eigen::VectorXd parameters);
 
-    expression_t expression;
+    string str_expression;
+
     double* currentVariables;
     double* currentParameters;
     int variablesCount;

@@ -1,6 +1,6 @@
 #include "../include/StringFunction.hpp"
 
-StringFunction::StringFunction(string str_expression)
+StringFunction::StringFunction(string str_expression) :str_expression(str_expression)
 {
   variablesCount = parametersCount = 0;
 
@@ -9,7 +9,13 @@ StringFunction::StringFunction(string str_expression)
 
   currentVariables = new double[variablesCount];
   currentParameters = new double[parametersCount];
+}
 
+double StringFunction::operator()(rowvec variables)
+{
+  /*copyVariables(variables);
+
+  expression_t expression;
   symbol_table_t symbol_table;
 
   for(int i=0; i<variablesCount; i++)
@@ -22,19 +28,33 @@ StringFunction::StringFunction(string str_expression)
 
   parser_t parser;
   parser.compile(str_expression,expression);
-}
 
-double StringFunction::operator()(rowvec variables)
-{
-  copyVariables(variables);
-  return expression.value();
+  //return expression.value();*/
+  return 0.0;
 }
 
 double StringFunction::operator()(rowvec variables, Eigen::VectorXd parameters)
 {
-  copyVariables(variables);
+  /*copyVariables(variables);
   copyParameters(parameters);
-  return expression.value();
+
+  expression_t expression;
+  symbol_table_t symbol_table;
+
+  for(int i=0; i<variablesCount; i++)
+    symbol_table.add_variable("X" + to_string(i + 1), currentVariables[i]);
+
+  for(int i=0; i<parametersCount; i++)
+    symbol_table.add_variable("B" + to_string(i + 1), currentParameters[i]);
+
+  expression.register_symbol_table(symbol_table);
+
+  parser_t parser;
+  parser.compile(str_expression,expression);
+
+  //return expression.value();*/
+
+  return 0.0;
 }
 
 void StringFunction::copyVariables(rowvec variables)
