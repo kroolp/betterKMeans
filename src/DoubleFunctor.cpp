@@ -10,7 +10,7 @@ int DoubleFunctor::inputs() const
 
 int DoubleFunctor::values() const
 {
-  return function.parametersCount;
+  return matrix.n_rows;
 }
 
 int DoubleFunctor::operator()(const Eigen::VectorXd &parameters, Eigen::VectorXd &fvec) const

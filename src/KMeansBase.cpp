@@ -81,13 +81,21 @@ double KMeansBase::errorSum()
 
   for(int i=0; i<clusters.size(); i++)
   {
+      double sum = 0.0;
+  
       for(int j=0; j<clusters[i].points.size(); j++)
       {
         double calculatedDistance = distance(clusters[i].points[j], clusters[i]);
-        errors.row(i) += calculatedDistance;
-        result += calculatedDistance;
+        sum += calculatedDistance;
       }
+      
+      sum /= clusters[i].points.size();
+      errors.row(i) = sum;
+      
+      result += sum;
   }
+  
+  result /= clusters.size();
 
   return result;
 }

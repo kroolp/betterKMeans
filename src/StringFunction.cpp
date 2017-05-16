@@ -13,7 +13,7 @@ StringFunction::StringFunction(string str_expression) :str_expression(str_expres
 
 double StringFunction::operator()(rowvec variables)
 {
-  /*copyVariables(variables);
+  copyVariables(variables);
 
   expression_t expression;
   symbol_table_t symbol_table;
@@ -29,13 +29,12 @@ double StringFunction::operator()(rowvec variables)
   parser_t parser;
   parser.compile(str_expression,expression);
 
-  //return expression.value();*/
-  return 0.0;
+  return expression.value();
 }
 
 double StringFunction::operator()(rowvec variables, Eigen::VectorXd parameters)
 {
-  /*copyVariables(variables);
+  copyVariables(variables);
   copyParameters(parameters);
 
   expression_t expression;
@@ -52,9 +51,7 @@ double StringFunction::operator()(rowvec variables, Eigen::VectorXd parameters)
   parser_t parser;
   parser.compile(str_expression,expression);
 
-  //return expression.value();*/
-
-  return 0.0;
+  return expression.value();
 }
 
 void StringFunction::copyVariables(rowvec variables)

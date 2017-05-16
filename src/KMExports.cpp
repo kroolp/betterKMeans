@@ -57,17 +57,17 @@ Rcpp::List betterKMeans(arma::mat inputMatrix, int k, double epsilon, int maxIte
 
   mat resultMatrix(k, inputMatrix.n_cols);
   cube bases(inputMatrix.n_cols, inputMatrix.n_cols, k);
-
+  
   for(int i=0; i<k; i++)
   {
-    //resultMatrix.row(i) = betterKMeans.clusters[i].centerPoint;
-    //bases.slice(i) = betterKMeans.clusters[i].base;
+    resultMatrix.row(i) = betterKMeans.clusters[i].centerPoint;
+    bases.slice(i) = betterKMeans.clusters[i].base;
   }
-
+  
   return Rcpp::List::create(
     Rcpp::Named("centers") = resultMatrix,
-    Rcpp::Named("labels") = resultMatrix,
-    Rcpp::Named("errors") = resultMatrix,
-    Rcpp::Named("bases") = resultMatrix
+    Rcpp::Named("labels") = betterKMeans.labels,
+    Rcpp::Named("errors") = betterKMeans.errors,
+    Rcpp::Named("bases") = bases
   );
 }
