@@ -28,7 +28,7 @@ double KOMeans::distance(rowvec& point, Cluster& cluster)
     double sum = 0.0;
 
     for(int j=0; j<i; j++)
-      sum += dot(shiftedVector, cluster.base.row(j));
+      sum += dot(shiftedVector, cluster.eigenVectors.row(j));
 
     result += currentOmega * (toCenterDistance - sum);
   }

@@ -10,9 +10,10 @@ class PCA
   public:
     PCA(mat matrix);
 
-    mat calculate();
+    void calculate();
 
     mat matrix;
+    mat eigenVectors;
 };
 
 #endif

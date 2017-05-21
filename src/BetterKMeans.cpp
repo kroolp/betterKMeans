@@ -19,7 +19,7 @@ void BetterKMeans::calculate()
 double BetterKMeans::distance(rowvec& point, Cluster& cluster)
 {
   vec shiftedVector = (point - cluster.centerPoint).t();
-  rowvec transformedvector = (cluster.base * shiftedVector).t();
+  rowvec transformedvector = (cluster.eigenVectors * shiftedVector).t();
   double fromCenterDistance = (pow(norm(transformedvector), 2));
   double functionValue = cluster.func(point);
   double fromFunctionDistance = pow((functionValue - point.col(point.n_cols - 1).max()), 2);

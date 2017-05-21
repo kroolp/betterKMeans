@@ -2,11 +2,10 @@
 
 PCA::PCA(mat matrix): matrix(matrix) {}
 
-mat PCA::calculate()
+void PCA::calculate()
 {
-  mat coeff, score;
-  vec latent, tsquared;
+  mat scores;
+  vec tsquared, eigenValues;
 
-  princomp(coeff, score, latent, tsquared, cov(matrix));
-  return coeff;
+  princomp(eigenVectors, scores, eigenValues, tsquared, matrix);
 }

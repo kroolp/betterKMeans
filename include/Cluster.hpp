@@ -21,7 +21,7 @@ public:
 
   vector <rowvec> points;
   rowvec centerPoint;
-  mat base;
+  mat eigenVectors;
   StringFunction func;
 
   string expression;
