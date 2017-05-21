@@ -1,12 +1,13 @@
 #include "../include/Cluster.hpp"
 
 Cluster::Cluster(rowvec centerPoint, string expression)
-  : centerPoint(centerPoint), expression(expression), eigenVectors(mat(centerPoint.n_cols, centerPoint.n_cols)), func(StringFunction(expression))
+  : centerPoint(centerPoint), expression(expression), eigenVectors(mat(centerPoint.n_cols, centerPoint.n_cols)), eigenValues(vec(centerPoint.n_cols)), func(StringFunction(expression))
 {
   Eigen::VectorXd parameters(func.parametersCount);
   rowvec variables(func.variablesCount);
 
   eigenVectors.fill(0);
+  eigenValues.fill(0);
   parameters.fill(0);
   variables.fill(0);
   func(variables, parameters);
@@ -39,6 +40,7 @@ void Cluster::calculateBase()
   PCA pca(pointsMatrix());
   pca.calculate();
   eigenVectors = pca.eigenVectors;
+  eigenValues = pca.eigenValues;
 }
 
 mat Cluster::pointsMatrix()

@@ -5,7 +5,7 @@ PCA::PCA(mat matrix): matrix(matrix) {}
 void PCA::calculate()
 {
   mat scores;
-  vec tsquared, eigenValues;
+  vec tsquared;
 
   princomp(eigenVectors, scores, eigenValues, tsquared, matrix);
 }

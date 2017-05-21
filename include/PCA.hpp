@@ -14,6 +14,7 @@ class PCA
 
     mat matrix;
     mat eigenVectors;
+    vec eigenValues;
 };
 
 #endif

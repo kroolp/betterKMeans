@@ -57,14 +57,14 @@ Rcpp::List betterKMeans(arma::mat inputMatrix, int k, double epsilon, int maxIte
 
   mat resultMatrix(k, inputMatrix.n_cols);
   cube eigenVectors(inputMatrix.n_cols, inputMatrix.n_cols, k);
-  //cube eigenValues(inputMatrix.n_cols, 1, k);
+  cube eigenValues(inputMatrix.n_cols, 1, k);
   cube resutlToDraw(drawPoints.n_rows, drawPoints.n_cols +1, k);
 
   for(int i=0; i<k; i++)
   {
     resultMatrix.row(i) = betterKMeans.clusters[i].centerPoint;
     eigenVectors.slice(i) = betterKMeans.clusters[i].eigenVectors;
-// eigenValues.slice(i) = betterKMeans.clusters[i].eigenValues;
+    eigenValues.slice(i) = mat(betterKMeans.clusters[i].eigenValues);
     
     mat drawClusterPoints(drawPoints.n_rows, drawPoints.n_cols +1);
     
@@ -88,7 +88,7 @@ Rcpp::List betterKMeans(arma::mat inputMatrix, int k, double epsilon, int maxIte
     Rcpp::Named("labels") = betterKMeans.labels,
     Rcpp::Named("errors") = betterKMeans.errors,
     Rcpp::Named("eigenVectors") = eigenVectors,
-    Rcpp::Named("eigenValues") = eigenVectors,
+    Rcpp::Named("eigenValues") = eigenValues,
     Rcpp::Named("pointsToDraw") = resutlToDraw
   );
 }
