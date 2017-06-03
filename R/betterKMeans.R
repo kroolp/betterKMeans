@@ -10,7 +10,7 @@ plot_kOMeans <- function(pointsMatrix, k, epsilon, maxIter, omega) {
   
   plot_points(pointsMatrix, result$labels);
   draw_centers(result$centers, k);
-  draw_bases(result$bases, result$centers, k);
+  draw_bases(result$eigenVectors, result$eigenValues, result$centers, k);
 }
 
 plot_betterKMeans <- function(pointsMatrix, k, epsilon, maxIter, omega, expression, pointsToPlot) {
@@ -35,8 +35,8 @@ draw_bases <- function(eigenVectors, eigenValues, centers, k) {
   for(i in 1:k)
   {
     eigenVector <- eigenVectors[,,k];
-    xpoints = c(2*sqrt(eigenValues[1,1,k]) * eigenVector[1,1] + centers[i,1], centers[i,1], 2*sqrt(eigenValues[1,1,k]) *eigenVector[1,2] + centers[i,1]);
-    ypoints = c(2*sqrt(eigenValues[2,1,k]) *eigenVector[2,1] + centers[i,2], centers[i,2], 2*sqrt(eigenValues[2,1,k]) *eigenVector[2,2] + centers[i,2]);
+    xpoints = c(2*sqrt(eigenValues[1,1,k]) * eigenVector[1,1] + centers[i,1], centers[i,1], 2*sqrt(eigenValues[2,1,k]) *eigenVector[1,2] + centers[i,1]);
+    ypoints = c(2*sqrt(eigenValues[1,1,k]) *eigenVector[2,1] + centers[i,2], centers[i,2], 2*sqrt(eigenValues[2,1,k]) *eigenVector[2,2] + centers[i,2]);
 
     polypnts <- cbind(x=xpoints, y=ypoints)
     polygon(polypnts, col=adjustcolor(i, alpha.f=0.2), border=NA);

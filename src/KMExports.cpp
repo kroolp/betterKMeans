@@ -33,19 +33,22 @@ Rcpp::List kOMeans(arma::mat inputMatrix, int k, double epsilon, int maxIter, ar
   kOMeans.calculate();
 
   mat resultMatrix(k, inputMatrix.n_cols);
-  cube bases(inputMatrix.n_cols, inputMatrix.n_cols, k);
+  cube eigenVectors(inputMatrix.n_cols, inputMatrix.n_cols, k);
+  cube eigenValues(inputMatrix.n_cols, 1, k);
 
   for(int i=0; i<k; i++)
   {
     resultMatrix.row(i) = kOMeans.clusters[i].centerPoint;
-    bases.slice(i) = kOMeans.clusters[i].eigenVectors;
+    eigenVectors.slice(i) = kOMeans.clusters[i].eigenVectors;
+    eigenValues.slice(i) = mat(kOMeans.clusters[i].eigenValues);
   }
 
   return Rcpp::List::create(
     Rcpp::Named("centers") = resultMatrix,
     Rcpp::Named("labels") = kOMeans.labels,
     Rcpp::Named("errors") = kOMeans.errors,
-    Rcpp::Named("bases") = bases
+    Rcpp::Named("eigenVectors") = eigenVectors,
+    Rcpp::Named("eigenValues") = eigenValues
   );
 }
 
@@ -73,9 +76,7 @@ Rcpp::List betterKMeans(arma::mat inputMatrix, int k, double epsilon, int maxIte
       double funcResult = betterKMeans.clusters[i].func(drawPoints.row(j));
       
       for(int k=0; k<drawPoints.n_cols; k++)
-      {
         drawClusterPoints.row(j).col(k) = drawPoints.row(j).col(k);
-      }
       
       drawClusterPoints.row(j).col(drawPoints.n_cols) = funcResult;
     }
