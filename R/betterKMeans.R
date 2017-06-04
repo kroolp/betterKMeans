@@ -9,6 +9,9 @@ plot_result <- function(result, cex=.1, pch=19, xlab="X", ylab="Y", asp=1, xlim=
   
   if(!is.null(result$pointsToDraw))
     draw_functions(result$pointsToDraw, k);
+  
+  if(!is.null(result$eigenVectors) && is.null(result$pointsToDraw))
+    abline(0,0);
 }
 
 plot_points <- function(pointsMatrix, labels, cex, pch, xlab, ylab, asp, xlim, ylim, type, main, sub) {
