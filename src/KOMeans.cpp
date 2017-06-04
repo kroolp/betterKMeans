@@ -22,7 +22,7 @@ double KOMeans::distance(rowvec& point, Cluster& cluster)
   rowvec shiftedVector = point - cluster.centerPoint;
   double toCenterDistance = pow(norm(shiftedVector), 2);
 
-  for(int i=0; i<pointsMatrix.n_cols + 1; i++)
+  for(int i=0; i<pointsMatrix.n_cols; i++)
   {
     double currentOmega = omega.row(i).max();
     double sum = 0.0;
