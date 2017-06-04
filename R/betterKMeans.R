@@ -1,29 +1,18 @@
-plot_kMeans <- function(pointsMatrix, k, epsilon, maxIter) {
-  result <- KM::kMeans(pointsMatrix, k, epsilon, maxIter);
+plot_result <- function(result, cex=.1, pch=19, xlab="X", ylab="Y", asp=1, xlim=c(0, 1.0), ylim=c(0, 1.0), type=NULL, main=NULL, sub=NULL) {
+  k = length(result$errors);
 
-  plot_points(pointsMatrix, result$labels);
+  plot_points(result$inputMatrix, result$labels, cex=cex, pch=pch, xlab=xlab, ylab=ylab, asp=asp, xlim=xlim, ylim=ylim, type=type, main=main, sub=sub);
   draw_centers(result$centers, k);
-}
-
-plot_kOMeans <- function(pointsMatrix, k, epsilon, maxIter, omega) {
-  result <- KM::kOMeans(pointsMatrix, k, epsilon, maxIter, omega);
   
-  plot_points(pointsMatrix, result$labels);
-  draw_centers(result$centers, k);
-  draw_bases(result$eigenVectors, result$eigenValues, result$centers, k);
-}
-
-plot_betterKMeans <- function(pointsMatrix, k, epsilon, maxIter, omega, expression, pointsToPlot) {
-  result <- KM::betterKMeans(pointsMatrix, k, epsilon, maxIter, omega, expression, pointsToPlot);
+  if(!is.null(result$eigenVectors))
+    draw_bases(result$eigenVectors, result$eigenValues, result$centers, k);
   
-  plot_points(pointsMatrix, result$labels);
-  draw_centers(result$centers, k);
-  draw_bases(result$eigenVectors, result$eigenValues, result$centers, k);
-  draw_functions(result$pointsToDraw, k);
+  if(!is.null(result$pointsToDraw))
+    draw_functions(result$pointsToDraw, k);
 }
 
-plot_points <- function(pointsMatrix, labels) {
-  plot(pointsMatrix, col=labels, cex=.1, pch=19, xlab="X", ylab="Y", asp=1, xlim=c(0, 1.0), ylim=c(0, 1.0));
+plot_points <- function(pointsMatrix, labels, cex, pch, xlab, ylab, asp, xlim, ylim, type, main, sub) {
+  plot(pointsMatrix, col=labels, cex=cex, pch=pch, xlab=xlab, ylab=ylab, asp=asp, xlim=xlim, ylim=ylim, type=type, main=main, sub=sub);
 }
 
 draw_centers <- function(centers, k) {
@@ -45,7 +34,5 @@ draw_bases <- function(eigenVectors, eigenValues, centers, k) {
 
 draw_functions <- function(pointsToDraw, k) {
   for(i in 1:k)
-  {
     lines(list(x=pointsToDraw[,1,i], y=pointsToDraw[,2,i]), col=i);
-  }
 }

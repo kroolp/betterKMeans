@@ -22,7 +22,8 @@ Rcpp::List kMeans(arma::mat inputMatrix, int k, double epsilon, int maxIter)
   return Rcpp::List::create(
     Rcpp::Named("centers") = resultMatrix,
     Rcpp::Named("labels") = kMeans.labels,
-    Rcpp::Named("errors") = kMeans.errors
+    Rcpp::Named("errors") = kMeans.errors,
+    Rcpp::Named("inputMatrix") = inputMatrix
   );
 }
 
@@ -48,7 +49,8 @@ Rcpp::List kOMeans(arma::mat inputMatrix, int k, double epsilon, int maxIter, ar
     Rcpp::Named("labels") = kOMeans.labels,
     Rcpp::Named("errors") = kOMeans.errors,
     Rcpp::Named("eigenVectors") = eigenVectors,
-    Rcpp::Named("eigenValues") = eigenValues
+    Rcpp::Named("eigenValues") = eigenValues,
+    Rcpp::Named("inputMatrix") = inputMatrix
   );
 }
 
@@ -90,6 +92,7 @@ Rcpp::List betterKMeans(arma::mat inputMatrix, int k, double epsilon, int maxIte
     Rcpp::Named("errors") = betterKMeans.errors,
     Rcpp::Named("eigenVectors") = eigenVectors,
     Rcpp::Named("eigenValues") = eigenValues,
-    Rcpp::Named("pointsToDraw") = resutlToDraw
+    Rcpp::Named("pointsToDraw") = resutlToDraw,
+    Rcpp::Named("inputMatrix") = inputMatrix
   );
 }
