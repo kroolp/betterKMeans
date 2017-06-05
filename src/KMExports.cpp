@@ -8,7 +8,7 @@ using namespace std;
 
 #include "../include/PCA.hpp"
 // [[Rcpp::export]]
-Rcpp::List kMeans(arma::mat inputMatrix, int k, double epsilon, int maxIter)
+Rcpp::List kmeans(arma::mat inputMatrix, int k, double epsilon, int maxIter)
 {
   KMeans kMeans(inputMatrix, k, epsilon, maxIter);
   kMeans.calculate();
@@ -18,17 +18,21 @@ Rcpp::List kMeans(arma::mat inputMatrix, int k, double epsilon, int maxIter)
   {
     resultMatrix.row(i) = kMeans.clusters[i].centerPoint;
   }
-
-  return Rcpp::List::create(
+  
+  Rcpp::List out = Rcpp::List::create(
     Rcpp::Named("centers") = resultMatrix,
     Rcpp::Named("labels") = kMeans.labels,
     Rcpp::Named("errors") = kMeans.errors,
     Rcpp::Named("inputMatrix") = inputMatrix
   );
+  
+  out.attr("class") = "kmeans";
+
+  return out;
 }
 
 // [[Rcpp::export]]
-Rcpp::List kOMeans(arma::mat inputMatrix, int k, double epsilon, int maxIter, arma::vec omega)
+Rcpp::List kOmeans(arma::mat inputMatrix, int k, double epsilon, int maxIter, arma::vec omega)
 {
   KOMeans kOMeans(inputMatrix, k, epsilon, maxIter, omega);
   kOMeans.calculate();
@@ -43,8 +47,8 @@ Rcpp::List kOMeans(arma::mat inputMatrix, int k, double epsilon, int maxIter, ar
     eigenVectors.slice(i) = kOMeans.clusters[i].eigenVectors;
     eigenValues.slice(i) = mat(kOMeans.clusters[i].eigenValues);
   }
-
-  return Rcpp::List::create(
+  
+  Rcpp::List out = Rcpp::List::create(
     Rcpp::Named("centers") = resultMatrix,
     Rcpp::Named("labels") = kOMeans.labels,
     Rcpp::Named("errors") = kOMeans.errors,
@@ -52,10 +56,14 @@ Rcpp::List kOMeans(arma::mat inputMatrix, int k, double epsilon, int maxIter, ar
     Rcpp::Named("eigenValues") = eigenValues,
     Rcpp::Named("inputMatrix") = inputMatrix
   );
+  
+  out.attr("class") = "kOmeans";
+
+  return out;
 }
 
 // [[Rcpp::export]]
-Rcpp::List betterKMeans(arma::mat inputMatrix, int k, double epsilon, int maxIter, arma::vec omega, std::string expression, arma::mat drawPoints = mat(0, 0))
+Rcpp::List betterKmeans(arma::mat inputMatrix, int k, double epsilon, int maxIter, arma::vec omega, std::string expression, arma::mat drawPoints = mat(0, 0))
 {
   BetterKMeans betterKMeans(inputMatrix, k, epsilon, maxIter, omega, expression);
   betterKMeans.calculate();
@@ -86,7 +94,7 @@ Rcpp::List betterKMeans(arma::mat inputMatrix, int k, double epsilon, int maxIte
     resutlToDraw.slice(i) = drawClusterPoints;
   }
   
-  return Rcpp::List::create(
+  Rcpp::List out = Rcpp::List::create(
     Rcpp::Named("centers") = resultMatrix,
     Rcpp::Named("labels") = betterKMeans.labels,
     Rcpp::Named("errors") = betterKMeans.errors,
@@ -95,4 +103,8 @@ Rcpp::List betterKMeans(arma::mat inputMatrix, int k, double epsilon, int maxIte
     Rcpp::Named("pointsToDraw") = resutlToDraw,
     Rcpp::Named("inputMatrix") = inputMatrix
   );
+  
+  out.attr("class") = "betterKmeans";
+  
+  return out;
 }
