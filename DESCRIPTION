@@ -11,3 +11,4 @@ License: GPL (>= 2)
 Imports: Rcpp (>= 0.12.7), RcppArmadillo, RcppEigen
 LinkingTo: Rcpp, RcppArmadillo, RcppEigen
 Depends: RcppArmadillo, RcppEigen
+LazyData: true
