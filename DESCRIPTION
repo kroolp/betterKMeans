@@ -1,13 +1,11 @@
 Package: KM
 Type: Package
-Title: What the Package Does in One 'Title Case' Line
+Title: K means - effective modifications
 Version: 1.0
 Date: 2016-11-24
-Author: Your Name
-Maintainer: Your Name <your@email.com>
-Description: One paragraph description of what the package
-    does as one or more full sentences.
-License: GPL (>= 2)
+Author: Piotr Krol, krol.piotrek@wp.pl.
+Description: Implementation of traditional K-Means and 2 modifiactions, K-Omega-Means and Better-K-Menas.
+License: MIT
 Imports:
     Rcpp (>= 0.12.7),
     RcppArmadillo,
