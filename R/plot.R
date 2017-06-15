@@ -1,3 +1,15 @@
+#' Plot result of kmeans function
+#'
+#' @description
+#' All elements are in cluster-specific colors.
+#' 
+#' It plots:
+#' 
+#' * Cluster points
+#' 
+#' * Centers of clusters
+#' 
+#' @param result Instance of kmeans class
 plot.kmeans <- function(result, cex=.1, pch=19, xlab="X", ylab="Y", asp=1, xlim=c(0, 1.0), ylim=c(0, 1.0), type=NULL, main=NULL, sub=NULL) {
   k = length(result$errors);
 
@@ -5,6 +17,22 @@ plot.kmeans <- function(result, cex=.1, pch=19, xlab="X", ylab="Y", asp=1, xlim=
   draw_centers(result$centers, k);
 }
 
+#' Plot result of kOmeans function
+#'
+#' @description
+#' All elements are in cluster-specific colors, except function f(x)=0, which is black.
+#' 
+#' It plots:
+#' 
+#' * Cluster points
+#' 
+#' * Centers of clusters
+#' 
+#' * Bases of clusters which are triangular areas
+#' 
+#' * Function f(x)=0
+#' 
+#' @param result Instance of kOmeans class
 plot.kOmeans <- function(result, cex=.1, pch=19, xlab="X", ylab="Y", asp=1, xlim=c(0, 1.0), ylim=c(0, 1.0), type=NULL, main=NULL, sub=NULL) {
   k = length(result$errors);
   
@@ -15,6 +43,22 @@ plot.kOmeans <- function(result, cex=.1, pch=19, xlab="X", ylab="Y", asp=1, xlim
   abline(0,0);
 }
 
+#' Plot result of betterKmeans function
+#'
+#' @description
+#' All elements are in cluster-specific colors.
+#' 
+#' It plots:
+#' 
+#' * Cluster points
+#' 
+#' * Centers of clusters
+#' 
+#' * Bases of clusters which are triangular areas
+#' 
+#' * Functions of clusters
+#' 
+#' @param result Instance of betterKmeans class
 plot.betterKmeans <- function(result, cex=.1, pch=19, xlab="X", ylab="Y", asp=1, xlim=c(0, 1.0), ylim=c(0, 1.0), type=NULL, main=NULL, sub=NULL) {
   k = length(result$errors);
   
@@ -24,24 +68,6 @@ plot.betterKmeans <- function(result, cex=.1, pch=19, xlab="X", ylab="Y", asp=1,
   draw_bases(result$eigenVectors, result$eigenValues, result$centers, k);
   draw_functions(result$pointsToDraw, k);
 }
-
-plot_result <- function(result, cex=.1, pch=19, xlab="X", ylab="Y", asp=1, xlim=c(0, 1.0), ylim=c(0, 1.0), type=NULL, main=NULL, sub=NULL) {
-  k = length(result$errors);
-  
-  plot_points(result$inputMatrix, result$labels, cex=cex, pch=pch, xlab=xlab, ylab=ylab, asp=asp, xlim=xlim, ylim=ylim, type=type, main=main, sub=sub);
-  draw_centers(result$centers, k);
-  
-  if(!is.null(result$eigenVectors))
-    draw_bases(result$eigenVectors, result$eigenValues, result$centers, k);
-  
-  if(!is.null(result$pointsToDraw))
-    draw_functions(result$pointsToDraw, k);
-  
-  if(!is.null(result$eigenVectors) && is.null(result$pointsToDraw))
-    abline(0,0);
-}
-
-plot.kmeans <- plot.kOmeans <- plot.betterKmeans <- plot_result;
 
 plot_points <- function(pointsMatrix, labels, cex, pch, xlab, ylab, asp, xlim, ylim, type, main, sub) {
   plot(pointsMatrix, col=labels, cex=cex, pch=pch, xlab=xlab, ylab=ylab, asp=asp, xlim=xlim, ylim=ylim, type=type, main=main, sub=sub);
