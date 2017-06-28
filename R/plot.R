@@ -39,7 +39,7 @@ plot.kOmeans <- function(result, cex=.1, pch=19, xlab="X", ylab="Y", asp=1, xlim
   plot_points(result$inputMatrix, result$labels, cex=cex, pch=pch, xlab=xlab, ylab=ylab, asp=asp, xlim=xlim, ylim=ylim, type=type, main=main, sub=sub);
   draw_centers(result$centers, k);
   
-  draw_bases(result$eigenVectors, result$eigenValues, result$centers, k);
+  #draw_bases(result$eigenVectors, result$eigenValues, result$centers, k);
   abline(0,0);
 }
 
@@ -65,7 +65,7 @@ plot.betterKmeans <- function(result, cex=.1, pch=19, xlab="X", ylab="Y", asp=1,
   plot_points(result$inputMatrix, result$labels, cex=cex, pch=pch, xlab=xlab, ylab=ylab, asp=asp, xlim=xlim, ylim=ylim, type=type, main=main, sub=sub);
   draw_centers(result$centers, k);
 
-  draw_bases(result$eigenVectors, result$eigenValues, result$centers, k);
+  #draw_bases(result$eigenVectors, result$eigenValues, result$centers, k);
   draw_functions(result$pointsToDraw, k);
 }
 
@@ -92,5 +92,5 @@ draw_bases <- function(eigenVectors, eigenValues, centers, k) {
 
 draw_functions <- function(pointsToDraw, k) {
   for(i in 1:k)
-    lines(list(x=pointsToDraw[,1,i], y=pointsToDraw[,2,i]), col=i);
+    lines(list(x=pointsToDraw[,1,i], y=pointsToDraw[,2,i]));
 }
